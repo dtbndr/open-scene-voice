@@ -24,6 +24,8 @@ The result in `out/` is a DaVinci Resolve timeline (`resolve_timeline.otio`) wit
 
 ## Contributing
 
+Source and issues: <https://github.com/dtbndr/open-scene-voice>.
+
 Contributions are welcome. Open an issue, start a discussion, or send a pull request. A bot will ask you to sign the [Contributor License Agreement](CLA.md) on your first pull request; nothing is merged until it is signed.
 
 ## License and names
