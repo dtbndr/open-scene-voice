@@ -1,0 +1,38 @@
+{
+  "scenes": [
+    {
+      "ordinal": 1,
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "voice": "Algenib",
+      "model": "gemini-3.8-flash-tts",
+      "language": "en-GB",
+      "instruction": null,
+      "alignment": null
+    },
+    {
+      "ordinal": 2,
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "voice": "EXAVITQu4vr4xnSDxMaL",
+      "model": "eleven_flash_v2_5",
+      "language": null,
+      "instruction": null,
+      "alignment": {
+        "characters": [
+          "H",
+          "i",
+          "."
+        ],
+        "character_start_times_seconds": [
+          0.0,
+          0.08,
+          0.16
+        ],
+        "character_end_times_seconds": [
+          0.08,
+          0.16,
+          0.2
+        ]
+      }
+    }
+  ]
+}

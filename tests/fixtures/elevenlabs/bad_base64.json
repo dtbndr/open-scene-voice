@@ -1,0 +1,32 @@
+{
+ "audio_base64": "!!!not base64!!!",
+ "alignment": {
+  "characters": [
+   "I",
+   "t"
+  ],
+  "character_start_times_seconds": [
+   0.0,
+   0.128
+  ],
+  "character_end_times_seconds": [
+   0.128,
+   0.186
+  ]
+ },
+ "normalized_alignment": {
+  "characters": [
+   " ",
+   "I"
+  ],
+  "character_start_times_seconds": [
+   0.0,
+   0.046
+  ],
+  "character_end_times_seconds": [
+   0.046,
+   0.128
+  ]
+ },
+ "quality_check": null
+}

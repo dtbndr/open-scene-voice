@@ -1,0 +1,12 @@
+{
+ "candidates": [
+  {
+   "content": {
+    "role": "model",
+    "parts": [
+     "just a string"
+    ]
+   }
+  }
+ ]
+}

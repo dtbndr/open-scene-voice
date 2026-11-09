@@ -1,0 +1,18 @@
+{
+  "scenes": [
+    {
+      "ordinal": 2,
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "lines": [
+        {
+          "text": "She said \"café\" twice.",
+          "start_ms": 240
+        },
+        {
+          "text": "Next one.",
+          "start_ms": null
+        }
+      ]
+    }
+  ]
+}

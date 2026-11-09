@@ -1,0 +1,32 @@
+{
+  "scenes": [
+    {
+      "ordinal": 1,
+      "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "lines": [
+        {
+          "text": "Welcome back.",
+          "start_ms": 240
+        },
+        {
+          "text": "Today we start.",
+          "start_ms": 1234
+        }
+      ]
+    },
+    {
+      "ordinal": 2,
+      "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "lines": [
+        {
+          "text": "Keep it simple.",
+          "start_ms": 120
+        },
+        {
+          "text": "See you next time.",
+          "start_ms": null
+        }
+      ]
+    }
+  ]
+}

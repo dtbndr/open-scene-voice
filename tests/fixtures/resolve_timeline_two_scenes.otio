@@ -1,0 +1,172 @@
+{
+  "OTIO_SCHEMA": "Timeline.1",
+  "metadata": {},
+  "name": "SceneVoice",
+  "global_start_time": {
+    "OTIO_SCHEMA": "RationalTime.1",
+    "rate": 24,
+    "value": 0
+  },
+  "tracks": {
+    "OTIO_SCHEMA": "Stack.1",
+    "metadata": {},
+    "name": "tracks",
+    "source_range": null,
+    "effects": [],
+    "markers": [
+      {
+        "OTIO_SCHEMA": "Marker.2",
+        "metadata": {},
+        "name": "Scene 1: Caf\u00e9, au lait",
+        "color": "BLUE",
+        "comment": "First sentence.",
+        "marked_range": {
+          "OTIO_SCHEMA": "TimeRange.1",
+          "duration": {
+            "OTIO_SCHEMA": "RationalTime.1",
+            "rate": 24,
+            "value": 1
+          },
+          "start_time": {
+            "OTIO_SCHEMA": "RationalTime.1",
+            "rate": 24,
+            "value": 0
+          }
+        }
+      },
+      {
+        "OTIO_SCHEMA": "Marker.2",
+        "metadata": {},
+        "name": "Scene 2: The \"big\" day",
+        "color": "BLUE",
+        "comment": "Second sentence.",
+        "marked_range": {
+          "OTIO_SCHEMA": "TimeRange.1",
+          "duration": {
+            "OTIO_SCHEMA": "RationalTime.1",
+            "rate": 24,
+            "value": 1
+          },
+          "start_time": {
+            "OTIO_SCHEMA": "RationalTime.1",
+            "rate": 24,
+            "value": 60
+          }
+        }
+      }
+    ],
+    "enabled": true,
+    "children": [
+      {
+        "OTIO_SCHEMA": "Track.1",
+        "metadata": {},
+        "name": "Narration",
+        "source_range": null,
+        "effects": [],
+        "markers": [],
+        "enabled": true,
+        "children": [
+          {
+            "OTIO_SCHEMA": "Clip.1",
+            "metadata": {},
+            "name": "Scene 1",
+            "source_range": {
+              "OTIO_SCHEMA": "TimeRange.1",
+              "duration": {
+                "OTIO_SCHEMA": "RationalTime.1",
+                "rate": 24,
+                "value": 50
+              },
+              "start_time": {
+                "OTIO_SCHEMA": "RationalTime.1",
+                "rate": 24,
+                "value": 0
+              }
+            },
+            "effects": [],
+            "markers": [],
+            "media_reference": {
+              "OTIO_SCHEMA": "ExternalReference.1",
+              "metadata": {},
+              "name": "",
+              "available_range": {
+                "OTIO_SCHEMA": "TimeRange.1",
+                "duration": {
+                  "OTIO_SCHEMA": "RationalTime.1",
+                  "rate": 24000,
+                  "value": 50400
+                },
+                "start_time": {
+                  "OTIO_SCHEMA": "RationalTime.1",
+                  "rate": 24000,
+                  "value": 0
+                }
+              },
+              "target_url": "audio/001.wav"
+            }
+          },
+          {
+            "OTIO_SCHEMA": "Gap.1",
+            "metadata": {},
+            "name": "",
+            "source_range": {
+              "OTIO_SCHEMA": "TimeRange.1",
+              "duration": {
+                "OTIO_SCHEMA": "RationalTime.1",
+                "rate": 24,
+                "value": 10
+              },
+              "start_time": {
+                "OTIO_SCHEMA": "RationalTime.1",
+                "rate": 24,
+                "value": 0
+              }
+            },
+            "effects": [],
+            "markers": []
+          },
+          {
+            "OTIO_SCHEMA": "Clip.1",
+            "metadata": {},
+            "name": "Scene 2",
+            "source_range": {
+              "OTIO_SCHEMA": "TimeRange.1",
+              "duration": {
+                "OTIO_SCHEMA": "RationalTime.1",
+                "rate": 24,
+                "value": 123
+              },
+              "start_time": {
+                "OTIO_SCHEMA": "RationalTime.1",
+                "rate": 24,
+                "value": 0
+              }
+            },
+            "effects": [],
+            "markers": [],
+            "media_reference": {
+              "OTIO_SCHEMA": "ExternalReference.1",
+              "metadata": {},
+              "name": "",
+              "available_range": {
+                "OTIO_SCHEMA": "TimeRange.1",
+                "duration": {
+                  "OTIO_SCHEMA": "RationalTime.1",
+                  "rate": 24000,
+                  "value": 123456
+                },
+                "start_time": {
+                  "OTIO_SCHEMA": "RationalTime.1",
+                  "rate": 24000,
+                  "value": 0
+                }
+              },
+              "target_url": "audio/002.wav"
+            }
+          }
+        ],
+        "kind": "Audio"
+      }
+    ]
+  }
+}

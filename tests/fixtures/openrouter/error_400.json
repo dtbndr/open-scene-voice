@@ -1,0 +1,6 @@
+{
+  "error": {
+    "message": "Model openai/whisper-no-such-model does not exist",
+    "code": 400
+  }
+}

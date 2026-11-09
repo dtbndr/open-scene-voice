@@ -1,0 +1,294 @@
+{
+  "text": " Rome was burning, but one man refused to panic.  In the winter of 169 AD, Emperor Marcus Aurelius faced plague, war and betrayal all at once.  Most rulers would have crumbled.  Marcus opened a notebook instead.",
+  "usage": {
+    "seconds": 16.92,
+    "cost": 5.63436e-05
+  },
+  "task": "transcribe",
+  "language": "en",
+  "duration": 16.92,
+  "segments": [
+    {
+      "id": 0,
+      "seek": 0,
+      "start": 0.18,
+      "end": 4.14,
+      "text": " Rome was burning, but one man refused to panic.",
+      "tokens": [
+        12043,
+        390,
+        9488,
+        11,
+        457,
+        472,
+        587,
+        14654,
+        281,
+        14783,
+        13
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.06475562685115549,
+      "compression_ratio": 0.8888888888888888,
+      "no_speech_prob": 0
+    },
+    {
+      "id": 0,
+      "seek": 4,
+      "start": 4.29,
+      "end": 11.969999999999999,
+      "text": " In the winter of 169 AD, Emperor Marcus Aurelius faced plague, war and betrayal all at once.",
+      "tokens": [
+        682,
+        264,
+        6355,
+        295,
+        3165,
+        24,
+        9135,
+        11,
+        17913,
+        26574,
+        316,
+        540,
+        2081,
+        301,
+        11446,
+        28185,
+        11,
+        1516,
+        293,
+        42700,
+        439,
+        412,
+        1564,
+        13
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.10229814839616526,
+      "compression_ratio": 1.021978021978022,
+      "no_speech_prob": 0
+    },
+    {
+      "id": 0,
+      "seek": 12,
+      "start": 12.36,
+      "end": 14.04,
+      "text": " Most rulers would have crumbled.",
+      "tokens": [
+        4534,
+        35009,
+        576,
+        362,
+        941,
+        19928,
+        13
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.33729393873363733,
+      "compression_ratio": 0.8048780487804879,
+      "no_speech_prob": 0
+    },
+    {
+      "id": 0,
+      "seek": 14,
+      "start": 14.31,
+      "end": 16.91,
+      "text": " Marcus opened a notebook instead.",
+      "tokens": [
+        26574,
+        5625,
+        257,
+        21060,
+        2602,
+        13
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.2009522029547952,
+      "compression_ratio": 0.8095238095238095,
+      "no_speech_prob": 0
+    }
+  ],
+  "words": [
+    {
+      "word": " Rome",
+      "start": 0.23999999865889549,
+      "end": 0.6400000083446502
+    },
+    {
+      "word": " was",
+      "start": 0.6400000083446502,
+      "end": 0.9399999904632568
+    },
+    {
+      "word": " burning,",
+      "start": 0.9399999904632568,
+      "end": 1.7600000429153442
+    },
+    {
+      "word": " but",
+      "start": 1.7600000429153442,
+      "end": 1.9799999523162841
+    },
+    {
+      "word": " one",
+      "start": 1.9799999523162841,
+      "end": 2.259999923706055
+    },
+    {
+      "word": " man",
+      "start": 2.259999923706055,
+      "end": 2.6000000762939455
+    },
+    {
+      "word": " refused",
+      "start": 2.6000000762939455,
+      "end": 3.1600000190734865
+    },
+    {
+      "word": " to",
+      "start": 3.1600000190734865,
+      "end": 3.5199999141693117
+    },
+    {
+      "word": " panic.",
+      "start": 3.5199999141693117,
+      "end": 4.120000057220459
+    },
+    {
+      "word": " In",
+      "start": 4.590000011920929,
+      "end": 4.769999989271164
+    },
+    {
+      "word": " the",
+      "start": 4.769999989271164,
+      "end": 4.8699999833106995
+    },
+    {
+      "word": " winter",
+      "start": 4.8699999833106995,
+      "end": 5.150000014305115
+    },
+    {
+      "word": " of",
+      "start": 5.150000014305115,
+      "end": 5.390000023841858
+    },
+    {
+      "word": " 169",
+      "start": 5.390000023841858,
+      "end": 6.089999952316284
+    },
+    {
+      "word": " AD,",
+      "start": 6.089999952316284,
+      "end": 6.9500000858306885
+    },
+    {
+      "word": " Emperor",
+      "start": 6.9500000858306885,
+      "end": 7.29
+    },
+    {
+      "word": " Marcus",
+      "start": 7.29,
+      "end": 7.710000076293945
+    },
+    {
+      "word": " Aurelius",
+      "start": 7.710000076293945,
+      "end": 8.409999885559081
+    },
+    {
+      "word": " faced",
+      "start": 8.409999885559081,
+      "end": 8.750000038146972
+    },
+    {
+      "word": " plague,",
+      "start": 8.750000038146972,
+      "end": 9.429999866485595
+    },
+    {
+      "word": " war",
+      "start": 9.429999866485595,
+      "end": 9.809999980926513
+    },
+    {
+      "word": " and",
+      "start": 9.809999980926513,
+      "end": 10.150000133514403
+    },
+    {
+      "word": " betrayal",
+      "start": 10.150000133514403,
+      "end": 10.750000038146972
+    },
+    {
+      "word": " all",
+      "start": 10.750000038146972,
+      "end": 11.270000019073485
+    },
+    {
+      "word": " at",
+      "start": 11.270000019073485,
+      "end": 11.429999866485595
+    },
+    {
+      "word": " once.",
+      "start": 11.429999866485595,
+      "end": 11.949999847412109
+    },
+    {
+      "word": " Most",
+      "start": 12.36,
+      "end": 12.679999992847442
+    },
+    {
+      "word": " rulers",
+      "start": 12.679999992847442,
+      "end": 13.040000007152557
+    },
+    {
+      "word": " would",
+      "start": 13.040000007152557,
+      "end": 13.299999997615814
+    },
+    {
+      "word": " have",
+      "start": 13.299999997615814,
+      "end": 13.41999994277954
+    },
+    {
+      "word": " crumbled.",
+      "start": 13.41999994277954,
+      "end": 14.019999966621398
+    },
+    {
+      "word": " Marcus",
+      "start": 14.369999998658896,
+      "end": 14.77000000834465
+    },
+    {
+      "word": " opened",
+      "start": 14.77000000834465,
+      "end": 15.410000023841858
+    },
+    {
+      "word": " a",
+      "start": 15.410000023841858,
+      "end": 15.569999990463257
+    },
+    {
+      "word": " notebook",
+      "start": 15.569999990463257,
+      "end": 15.989999947547913
+    },
+    {
+      "word": " instead.",
+      "start": 15.989999947547913,
+      "end": 16.770000038146975
+    }
+  ]
+}

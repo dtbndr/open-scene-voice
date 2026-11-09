@@ -1,0 +1,17 @@
+{
+ "candidates": [
+  {
+   "content": {
+    "role": "model",
+    "parts": [
+     {
+      "inlineData": {
+       "mimeType": 24000,
+       "data": "AQACAA=="
+      }
+     }
+    ]
+   }
+  }
+ ]
+}

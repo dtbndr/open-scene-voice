@@ -1,0 +1,17 @@
+{
+ "candidates": [
+  {
+   "content": {
+    "role": "model",
+    "parts": [
+     {
+      "inlineData": {
+       "mimeType": "audio/L16;rate=24000",
+       "data": "AQAC"
+      }
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,36 @@
+{
+  "scenes": [
+    {
+      "ordinal": 1,
+      "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "lines": [
+        {
+          "text": "Hello there.",
+          "start_ms": 0
+        },
+        {
+          "text": "Nothing matched here.",
+          "start_ms": null
+        },
+        {
+          "text": "Last line.",
+          "start_ms": 4120
+        }
+      ]
+    },
+    {
+      "ordinal": 2,
+      "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "lines": [
+        {
+          "text": "She said \"café\" twice.",
+          "start_ms": 240
+        },
+        {
+          "text": "Next one.",
+          "start_ms": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+ "candidates": [
+  {
+   "finishReason": "SAFETY"
+  }
+ ],
+ "promptFeedback": {
+  "blockReason": "SAFETY"
+ }
+}

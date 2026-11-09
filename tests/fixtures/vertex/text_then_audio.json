@@ -1,0 +1,20 @@
+{
+ "candidates": [
+  {
+   "content": {
+    "role": "model",
+    "parts": [
+     {
+      "text": "hi"
+     },
+     {
+      "inlineData": {
+       "mimeType": "audio/L16;codec=pcm;rate=24000",
+       "data": "AQACAA=="
+      }
+     }
+    ]
+   }
+  }
+ ]
+}

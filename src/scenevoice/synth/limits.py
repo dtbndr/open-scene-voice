@@ -1,0 +1,3 @@
+MAX_TEXT_BYTES = 8000
+MAX_SCENES = 999
+ELEVENLABS_CHAR_LIMITS = {"eleven_flash_v2_5": 40000, "eleven_v4": 10000}
