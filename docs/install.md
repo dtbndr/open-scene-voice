@@ -22,7 +22,6 @@ When it finishes, close Terminal and open it again.
 
 ## Step 2: Install SceneVoice (once)
 
-<!-- UNVERIFIED: this release file does not exist until WS50 publishes version 0.2.0. The WS49 proof installs the local 0.1.0 wheel instead. -->
 Paste this line and press Return:
 
 ```
