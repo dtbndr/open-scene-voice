@@ -1,0 +1,611 @@
+{
+  "unobserved": true,
+  "note": "Synthetic beats replies in the model-facing shape of WS35 decision 6. None of these replies was observed from a model. Each case gives the script (null when its segment_counts cannot come from a valid script), the per-scene sentence counts, the raw reply text and the expected outcome.",
+  "refresh_note": "Replace with observed replies after the owner's paid probe, and refresh again at the M14 live acceptance.",
+  "cases": {
+    "valid": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}, {\"first\": 3, \"last\": 3, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "ok",
+        "problem_count": 0,
+        "scene": null,
+        "message_contains": null,
+        "cleaned_labels": []
+      }
+    },
+    "valid_in_code_fence": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "```json\n{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}, {\"first\": 3, \"last\": 3, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}\n```\n",
+      "expect": {
+        "stage": "ok",
+        "problem_count": 0,
+        "scene": null,
+        "message_contains": null,
+        "cleaned_labels": [
+          "removed a code fence around the whole reply"
+        ]
+      }
+    },
+    "valid_with_bom": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "﻿{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}, {\"first\": 3, \"last\": 3, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "ok",
+        "problem_count": 0,
+        "scene": null,
+        "message_contains": null,
+        "cleaned_labels": [
+          "removed a leading byte order mark"
+        ]
+      }
+    },
+    "one_scene_of_two": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 3, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 2,
+        "message_contains": "scene 2 is missing",
+        "cleaned_labels": []
+      }
+    },
+    "extra_scene": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 3, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}, {\"scene\": 3, \"beats\": [{\"first\": 1, \"last\": 1, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 3,
+        "message_contains": "scene 3 is not in the script",
+        "cleaned_labels": []
+      }
+    },
+    "wrong_scene_number": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 3, \"note\": \"A shot\"}]}, {\"scene\": 3, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 2,
+        "message_contains": "scene 2 is numbered 3",
+        "cleaned_labels": []
+      }
+    },
+    "scenes_out_of_order": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}, {\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 3, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 2,
+        "scene": 1,
+        "message_contains": "scene 1 is numbered 2",
+        "cleaned_labels": []
+      }
+    },
+    "sentence_covered_twice": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}, {\"first\": 2, \"last\": 3, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "beats[2].first must be 3, got 2",
+        "cleaned_labels": []
+      }
+    },
+    "gap_between_beats": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 1, \"note\": \"A shot\"}, {\"first\": 3, \"last\": 3, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "beats[2].first must be 2, got 3",
+        "cleaned_labels": []
+      }
+    },
+    "gap_at_end": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "beats end at 2 but the scene has 3 sentences",
+        "cleaned_labels": []
+      }
+    },
+    "beats_out_of_order": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 3, \"last\": 3, \"note\": \"A shot\"}, {\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "beats[1].first must be 1, got 3",
+        "cleaned_labels": []
+      }
+    },
+    "range_past_last_sentence": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 4, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "last must be at most segment_count 3, got 4",
+        "cleaned_labels": []
+      }
+    },
+    "first_below_one": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 0, \"last\": 3, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "beats[1].first must be 1, got 0",
+        "cleaned_labels": []
+      }
+    },
+    "first_after_last": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 2, \"last\": 1, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "beats[1].first must be 1, got 2",
+        "cleaned_labels": []
+      }
+    },
+    "first_after_last_mid": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 1, \"note\": \"A shot\"}, {\"first\": 2, \"last\": 1, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "beats[2].first must not exceed last",
+        "cleaned_labels": []
+      }
+    },
+    "empty_beats_for_scene_with_sentences": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 3, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": []}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 2,
+        "message_contains": "has 2 sentences but no beats",
+        "cleaned_labels": []
+      }
+    },
+    "empty_scene_with_empty_beats": {
+      "script": null,
+      "segment_counts": [
+        2,
+        0
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": []}]}",
+      "expect": {
+        "stage": "ok",
+        "problem_count": 0,
+        "scene": null,
+        "message_contains": null,
+        "cleaned_labels": []
+      }
+    },
+    "empty_scene_with_beats": {
+      "script": null,
+      "segment_counts": [
+        2,
+        0
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 1, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 2,
+        "message_contains": "has no sentences but the reply gives beats",
+        "cleaned_labels": []
+      }
+    },
+    "blank_note": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 3, \"note\": \"   \"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "note must not be blank",
+        "cleaned_labels": []
+      }
+    },
+    "multiline_note": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 3, \"note\": \"one\\ntwo\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "note must be a single line",
+        "cleaned_labels": []
+      }
+    },
+    "overlong_note": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 3, \"note\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "note must be at most 200 characters",
+        "cleaned_labels": []
+      }
+    },
+    "non_string_note": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 3, \"note\": 7}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "note must be a string",
+        "cleaned_labels": []
+      }
+    },
+    "boolean_as_first": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": true, \"last\": 3, \"note\": \"n\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "first must be an integer",
+        "cleaned_labels": []
+      }
+    },
+    "boolean_as_last": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": true, \"note\": \"n\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "last must be an integer",
+        "cleaned_labels": []
+      }
+    },
+    "float_as_last": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 3.0, \"note\": \"n\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "last must be an integer",
+        "cleaned_labels": []
+      }
+    },
+    "boolean_as_scene_number": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\":[{\"scene\":true,\"beats\":[{\"first\":1,\"last\":3,\"note\":\"n\"}]},{\"scene\":2,\"beats\":[{\"first\":1,\"last\":2,\"note\":\"n\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "scene 1 is numbered True",
+        "cleaned_labels": []
+      }
+    },
+    "non_json_text": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "Here are the beats you asked for.",
+      "expect": {
+        "stage": "parse",
+        "problem_count": 1,
+        "scene": null,
+        "message_contains": "not valid JSON",
+        "cleaned_labels": []
+      }
+    },
+    "json_array": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "[1, 2]",
+      "expect": {
+        "stage": "parse",
+        "problem_count": 1,
+        "scene": null,
+        "message_contains": "top level must be an object",
+        "cleaned_labels": []
+      }
+    },
+    "json_string": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "\"scenes\"",
+      "expect": {
+        "stage": "parse",
+        "problem_count": 1,
+        "scene": null,
+        "message_contains": "top level must be an object",
+        "cleaned_labels": []
+      }
+    },
+    "truncated_reply": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 2, \"",
+      "expect": {
+        "stage": "parse",
+        "problem_count": 1,
+        "scene": null,
+        "message_contains": "not valid JSON",
+        "cleaned_labels": []
+      }
+    },
+    "empty_reply": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "",
+      "expect": {
+        "stage": "parse",
+        "problem_count": 1,
+        "scene": null,
+        "message_contains": "not valid JSON",
+        "cleaned_labels": []
+      }
+    },
+    "extra_top_level_key": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}, {\"first\": 3, \"last\": 3, \"note\": \"A shot\"}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}], \"title\": \"x\"}",
+      "expect": {
+        "stage": "parse",
+        "problem_count": 1,
+        "scene": null,
+        "message_contains": "unexpected key 'title'",
+        "cleaned_labels": []
+      }
+    },
+    "extra_scene_key": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\":[{\"scene\":1,\"title\":\"Opening\",\"beats\":[]}]}",
+      "expect": {
+        "stage": "parse",
+        "problem_count": 1,
+        "scene": null,
+        "message_contains": "unexpected key 'title'",
+        "cleaned_labels": []
+      }
+    },
+    "extra_beat_key": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [{\"first\": 1, \"last\": 3, \"note\": \"n\", \"extra\": 1}]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "unexpected key 'extra'",
+        "cleaned_labels": []
+      }
+    },
+    "missing_scenes_key": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{}",
+      "expect": {
+        "stage": "parse",
+        "problem_count": 1,
+        "scene": null,
+        "message_contains": "missing key 'scenes'",
+        "cleaned_labels": []
+      }
+    },
+    "scenes_not_a_list": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": {}}",
+      "expect": {
+        "stage": "parse",
+        "problem_count": 1,
+        "scene": null,
+        "message_contains": "scenes must be a list",
+        "cleaned_labels": []
+      }
+    },
+    "scene_not_an_object": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [3]}",
+      "expect": {
+        "stage": "parse",
+        "problem_count": 1,
+        "scene": null,
+        "message_contains": "scenes[1] must be an object",
+        "cleaned_labels": []
+      }
+    },
+    "beats_not_a_list": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\":[{\"scene\":1,\"beats\":\"x\"},{\"scene\":2,\"beats\":[]}]}",
+      "expect": {
+        "stage": "parse",
+        "problem_count": 1,
+        "scene": null,
+        "message_contains": "scenes[1].beats must be a list",
+        "cleaned_labels": []
+      }
+    },
+    "beat_not_an_object": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\": [{\"scene\": 1, \"beats\": [\"x\"]}, {\"scene\": 2, \"beats\": [{\"first\": 1, \"last\": 2, \"note\": \"A shot\"}]}]}",
+      "expect": {
+        "stage": "coverage",
+        "problem_count": 1,
+        "scene": 1,
+        "message_contains": "must be an object",
+        "cleaned_labels": []
+      }
+    },
+    "sidecar_key_ordinal_rejected": {
+      "script": "## Opening\nWelcome back. Today we open the box. Let us begin.\n\n## The reveal\nIt is empty. We laugh.\n",
+      "segment_counts": [
+        3,
+        2
+      ],
+      "reply": "{\"scenes\":[{\"ordinal\":1,\"beats\":[]}]}",
+      "expect": {
+        "stage": "parse",
+        "problem_count": 1,
+        "scene": null,
+        "message_contains": "missing key 'scene'",
+        "cleaned_labels": []
+      }
+    }
+  }
+}

@@ -14,7 +14,18 @@ class ProviderAudio:
 
 
 class ProviderError(Exception):
-    """Provider, JSON or base64 failure; carries its message."""
+    """Provider, JSON or base64 failure; carries its message.
+
+    `status` is the HTTP status when there was one; `transport` is true when no
+    HTTP response arrived (connection, timeout, protocol failure).
+    """
+
+    def __init__(
+        self, message: str = "", *, status: int | None = None, transport: bool = False
+    ) -> None:
+        super().__init__(message)
+        self.status = status
+        self.transport = transport
 
 
 @dataclass(frozen=True)

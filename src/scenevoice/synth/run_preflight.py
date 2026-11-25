@@ -1,6 +1,8 @@
 from collections.abc import Callable, Mapping
 from pathlib import Path
 
+from scenevoice.keys.missing_key_message import missing_key_message
+from scenevoice.progress import Failure
 from scenevoice.synth.audio_dir import AUDIO_DIR
 from scenevoice.synth.audio_rel_path import audio_rel_path
 from scenevoice.synth.check_audio_dir_full import check_audio_dir_full
@@ -44,6 +46,7 @@ def run_preflight(
     body_check: BodyCheck | None = None,
     settings: RecordSettings | None = None,
     note: Callable[[str], None] = lambda text: None,
+    key_file_path: str | Path | None = None,
 ) -> PreflightResult | str:
     """Contract steps 1-7 in order; the first failure returns its message (no prefix, no key values).
 
@@ -70,11 +73,13 @@ def run_preflight(
         out_of_range = check_scene(scene, len(scenes))
         if out_of_range is not None:
             return _text(out_of_range)
-    env = resolve_env(process_env, dotenv_path, spec.env_names)
+    env = resolve_env(
+        process_env, dotenv_path, spec.env_names, key_file=key_file_path, warn=note
+    )
     if isinstance(env, Violation):
         return _text(env)
     if isinstance(env, list):
-        return "missing environment variables: " + ", ".join(env)
+        return Failure(missing_key_message(env, key_file_path), "missing_key")
     if scene is not None:
         # Scene mode: --out, DIR/audio, the target, the record path, the record (with settings), then the probe.
         selected = [s for s in scenes if s.ordinal == scene]

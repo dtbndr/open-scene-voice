@@ -1,5 +1,7 @@
 import argparse
 
+from scenevoice.cli.progress_arg import add_progress_argument
+
 
 class _PlanAndDir(argparse.Action):
     """Take one value as DIR, or two as PLAN then DIR; anything else is a usage error."""
@@ -14,11 +16,12 @@ class _PlanAndDir(argparse.Action):
 def add_pack_parser(subparsers) -> None:
     pack = subparsers.add_parser(
         "pack",
-        usage="%(prog)s [-h] [--editor {resolve}] [PLAN] DIR",
+        usage="%(prog)s [-h] [--progress {text,json}] [--editor {resolve}] [PLAN] DIR",
         allow_abbrev=False,
         help="write scene_manifest.csv in DIR, beside the synthesized audio folder",
     )
     pack.set_defaults(plan=None)
+    add_progress_argument(pack)
     pack.add_argument(
         "--editor", choices=["resolve"], default=None,
         help="also write resolve_timeline.otio (scene markers) for DaVinci Resolve",

@@ -4,7 +4,9 @@ The `audio/` folder layout and the optional Resolve timeline below were reopened
 
 ## Product direction
 
-SceneVoice is open source for self-use by technically comfortable video creators and editors, alongside the done-for-you Voice Your Scenes service.
+SceneVoice is open source for self-use by video creators and editors, alongside the done-for-you Voice Your Scenes service.
+
+Release 2 is in scope: a local web client over the CLI, so creators who do not work in a terminal can run the same plan, synth, align and pack work in a browser. Everything runs on the user's machine, and the CLI keeps its existing capabilities unchanged and remains the contract the web client works through. Users bring their own provider keys, stored per user on their machine and never shown back in the browser. New capabilities arrive as CLI commands first. A creator can plan the pictures: `scenevoice beats` asks a hosted language model, through OpenRouter, to describe each scene's visual beats from the saved script, written as a separate sidecar file that is not part of the script, the pack or the timeline. The script text leaves the machine for OpenRouter, and the call uses provider quota. The web client offers it only for a saved script that passes the check.
 
 ## Output
 
@@ -29,7 +31,7 @@ One header row, then one row per scene in script order. It gives an editor witho
 
 ## Provider
 
-The default provider is Vertex AI `gemini-3.8-flash-tts` (the earlier `gemini-3.1-flash-tts-preview` was superseded in M4) with the 30 prebuilt Gemini TTS voices and a required `--model` choice among the four models of the synth contract (`synth --voice`, `synth --model`; the contract is `docs/specs/synth-contract.md`). The TTS provider is inferred from `--model`: the two Gemini models (`gemini-3.8-flash-tts`, `gemini-3.8-flash-lite-tts`) use Vertex, and `eleven_flash_v2_5` and `eleven_v4` use ElevenLabs with a BYOK key; there is no `--provider` flag and no default model (see the synth contract). Each script, hence each pack, is voiced by one provider, chosen for the script, and `synth --scene N` uses the same provider; mixed-provider packs are unsupported. OpenRouter `openai/whisper-large-v3-turbo` is used by `align` only, where the align contract routes a scene to transcription (the contract is `docs/specs/align-contract.md`).
+The default provider is Vertex AI `gemini-3.8-flash-tts` (the earlier `gemini-3.1-flash-tts-preview` was superseded in M4) with the 30 prebuilt Gemini TTS voices and a required `--model` choice among the four models of the synth contract (`synth --voice`, `synth --model`; the contract is `docs/specs/synth-contract.md`). The TTS provider is inferred from `--model`: the two Gemini models (`gemini-3.8-flash-tts`, `gemini-3.8-flash-lite-tts`) use Vertex, and `eleven_flash_v2_5` and `eleven_v4` use ElevenLabs with a BYOK key; there is no `--provider` flag and no default model (see the synth contract). Each script, hence each pack, is voiced by one provider, chosen for the script, and `synth --scene N` uses the same provider; mixed-provider packs are unsupported. OpenRouter is used by `align` and `beats` only: `openai/whisper-large-v3-turbo` for `align`, where the align contract routes a scene to transcription (the contract is `docs/specs/align-contract.md`), and a chat model chosen by `--model` for `beats`.
 
 ## Out of scope
 

@@ -3,6 +3,7 @@ import os
 import sys
 from pathlib import Path
 
+from scenevoice.keys import key_file_path as default_key_file_path
 from scenevoice.synth import ProviderFactory, run_synth
 
 
@@ -23,4 +24,6 @@ def run_synth_command(args, provider_factory: ProviderFactory) -> int:
         scene=args.scene,
         provider_factory=provider_factory,
         stderr=sys.stderr,
+        key_file_path=default_key_file_path(os.environ),
+        progress_mode=args.progress,
     )

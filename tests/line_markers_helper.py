@@ -1,21 +1,18 @@
 """Shared pieces for the line-marker pack tests (probe script, fixture transcriber, marker reader)."""
 
 import hashlib
-import io
 import json
-from pathlib import Path
 
 from align_run_helper import Fake, go
-from pack_run_helper import FakeStdin, put_wav, scene, write_plan
-
-from scenevoice.pack import run_pack
+from pack_run_helper import put_wav, run_text, scene, write_plan
+from paths_helper import FIXTURES
 
 PROBE = (
     "Rome was burning, but one man refused to panic. In the winter of 169 AD, Emperor Marcus "
     "Aurelius faced plague, war and betrayal all at once. Most rulers would have crumbled. "
     "Marcus opened a notebook instead."
 )
-FIXTURE = Path(__file__).parent / "fixtures" / "openrouter" / "whisper_verbose_json.json"
+FIXTURE = FIXTURES / "openrouter" / "whisper_verbose_json.json"
 SMOKE_FRAMES = 408000
 SMOKE_LINE_FRAMES = [0, 6, 110, 297, 345, 418, 424, 528, 715, 763]
 
@@ -39,9 +36,7 @@ def align(plan, out, tmp_path):
 
 
 def pack(plan, out):
-    err = io.StringIO()
-    code = run_pack(plan, FakeStdin(b""), out, err, "resolve")
-    return code, err.getvalue()
+    return run_text(plan, out, "resolve")
 
 
 def markers(out):

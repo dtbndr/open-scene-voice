@@ -1,6 +1,7 @@
 from collections.abc import Callable, Sequence
 from pathlib import Path
 
+from scenevoice.progress import Failure, failure_kind
 from scenevoice.synth.audio_dir import AUDIO_DIR
 from scenevoice.synth.audio_rel_path import audio_rel_path
 from scenevoice.synth.neighbour_texts import neighbour_texts
@@ -27,6 +28,7 @@ def synth_scenes(
     *,
     plan: Sequence[PlanScene],
     record_hook: Callable[[int, ProviderAudio], str | None] | None = None,
+    scene_event: Callable[[str, int, int, str | None, str], None] | None = None,
 ) -> str | None:
     """Synthesize scenes in plan order; stop at the first failure (written WAVs are kept).
 
@@ -35,24 +37,34 @@ def synth_scenes(
     `total` is the plan scene count shown in progress (default: len(scenes)).
     `record_hook(ordinal, audio)` runs after the WAV is at its final name and before that scene's
     progress line; a returned message stops the run as `scene N: <message>` (that WAV is kept).
-    Returns None on success or a raw failure message (redaction is the caller's job).
+    `scene_event(state, ordinal, total, path, message)` is called `started` before the provider call
+    (path None) and `done` after the record hook, with the same text `progress` receives.
+    Returns None on success or a raw failure message (redaction is the caller's job); every failure is
+    a `Failure` carrying its kind and scene.
     """
     write_dir = Path(out_dir) / AUDIO_DIR
     if total is None:
         total = len(scenes)
     for scene in scenes:
+        if scene_event is not None:
+            scene_event("started", scene.ordinal, total, None, f"scene {scene.ordinal}/{total} started")
         try:
             previous_text, next_text = neighbour_texts(plan, scene.ordinal)
             request = ProviderRequest(scene.body, previous_text, next_text, voice, language, instruction)
             audio = provider(request)
         except ProviderError as error:
-            return f"scene {scene.ordinal}: {error}"
+            kind = failure_kind("tts", error.status, transport=error.transport)
+            return Failure(f"scene {scene.ordinal}: {error}", kind, scene=scene.ordinal, status=error.status)
         bad = validate_audio(audio) or write_wav(write_dir, scene.ordinal, audio.wav)
         if bad is not None:
-            return f"scene {scene.ordinal}: {bad.message}"
+            return Failure(f"scene {scene.ordinal}: {bad.message}", "other", scene=scene.ordinal)
         if record_hook is not None:
             hooked = record_hook(scene.ordinal, audio)
             if hooked is not None:
-                return f"scene {scene.ordinal}: {hooked}"
-        progress(f"scene {scene.ordinal}/{total} written to {audio_rel_path(scene.ordinal)}")
+                return Failure(f"scene {scene.ordinal}: {hooked}", "other", scene=scene.ordinal)
+        path = audio_rel_path(scene.ordinal)
+        text = f"scene {scene.ordinal}/{total} written to {path}"
+        progress(text)
+        if scene_event is not None:
+            scene_event("done", scene.ordinal, total, path, text)
     return None

@@ -1,12 +1,14 @@
 # Plan contract
 
+> Non-authoritative: tests are the authority for CLI behaviour and win on conflict. This file is deleted when a slice next touches the behaviour it describes.
+
 **Status: Approved 2026-10-01 by the owner.**
 
-This contract defines plan semantics. It builds on `docs/specs/script-contract.md` and does not authorize implementation, workspace creation, provider calls, or a pilot. It defines no error code or CLI behavior.
+This contract defines plan semantics. It builds on the script-check tests such as `tests/test_load_scenes.py` and does not authorize implementation, workspace creation, provider calls, or a pilot. It defines no error code or CLI behavior.
 
 ## Creating a plan
 
-A plan is derived only from file-backed input whose complete contents are a valid source under the [creator script contract](script-contract.md). The input is read as supplied: planning does not normalize, trim, render, or rewrite source text.
+A plan is derived only from file-backed input whose complete contents are a valid source under the script-check tests such as `tests/test_load_scenes.py`. The input is read as supplied: planning does not normalize, trim, render, or rewrite source text.
 
 An invalid script is rejected and yields no partial plan. A missing or unreadable input is a separate operational failure and also yields no partial plan.
 

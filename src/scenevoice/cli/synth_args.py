@@ -1,5 +1,6 @@
 import argparse
 
+from scenevoice.cli.progress_arg import add_progress_argument
 from scenevoice.synth import DEFAULT_LANGUAGE, MODELS, VOICES, is_text_blank
 
 
@@ -42,4 +43,5 @@ def add_synth_parser(subparsers) -> None:
         "--out and DIR/audio must already exist; pass the original --voice, --model, --language "
         "and --instruction again (they are checked against DIR/synth_record.json)",
     )
+    add_progress_argument(synth)
     synth.set_defaults(synth_parser=synth)

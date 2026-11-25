@@ -11,4 +11,4 @@ def check_controls(text: str) -> Violation | None:
     if match is None:
         return None
     line = 1 + text.count("\n", 0, match.start())
-    return Violation("control", f"disallowed control character U+{ord(match.group()):04X}", line)
+    return Violation("control", f"This line has a hidden character that cannot be spoken (U+{ord(match.group()):04X}). Delete it.", line)

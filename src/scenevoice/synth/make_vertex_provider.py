@@ -38,7 +38,9 @@ def make_vertex_provider(env: dict[str, str], model: str, post: Post = urllib_po
             )
             return parse_vertex_response(post(url, headers, payload, _TIMEOUT_SECONDS))
         except ProviderError as exc:
-            raise ProviderError(redact_secret(str(exc), raw_key)) from exc
+            raise ProviderError(
+                redact_secret(str(exc), raw_key), status=exc.status, transport=exc.transport
+            ) from exc
         except Exception as exc:
             message = f"Vertex request failed: {type(exc).__name__}"
             raise ProviderError(redact_secret(message, raw_key)) from exc

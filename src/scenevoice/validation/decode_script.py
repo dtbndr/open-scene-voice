@@ -5,10 +5,9 @@ _BOM = b"\xef\xbb\xbf"
 
 def decode_script(data: bytes) -> str | Violation:
     if data.startswith(_BOM):
-        return Violation("bom", "file starts with a UTF-8 byte order mark (BOM); save it without one", 1)
+        return Violation("bom", "The file starts with a hidden marker. Save it as plain UTF-8 text without a byte order mark.", 1)
     try:
         return data.decode("utf-8")
     except UnicodeDecodeError as error:
         line = 1 + data[: error.start].count(b"\n")
-        byte = data[error.start]
-        return Violation("invalid-utf8", f"invalid UTF-8 byte 0x{byte:02x}", line)
+        return Violation("invalid-utf8", "The file is not plain UTF-8 text. Re-save it as UTF-8.", line)

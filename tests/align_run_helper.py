@@ -3,6 +3,7 @@
 import io
 import json
 
+from record_helper import eleven_entry, write_record
 from wav_helper import make_wav
 
 from scenevoice.align import TranscriptionError
@@ -83,3 +84,63 @@ def go(plan_path, out, fake, tmp_path, env=None, stdin=None, dotenv=None):
     text = err.getvalue()
     assert KEY not in text
     return code, text, keys
+
+
+# Record-routing fixtures shared by the run_align record and notes tests.
+BODIES = ["Welcome back. Today we start.", "Keep it simple. See you next time."]
+RUN_NOTE = PREFIX + "NOTE no synth_record.json, all scenes transcribed\n"
+SCENE2_NOTE = PREFIX + "NOTE scene 2 line 2: no match, start_ms null\n"
+F_NOTE = PREFIX + "NOTE scene 2: alignment text differs from plan body, transcribed\n"
+SCENE1 = [
+    (" Welcome", 0.23999999865889549),
+    (" back.", 0.62),
+    (" Today", 1.2344),
+    (" we", 1.6),
+    (" start.", 1.86),
+]
+SCENE2 = [
+    (" Keep", 0.12),
+    (" it", 0.3),
+    (" simple.", 0.5),
+    (" Sue", 1.9),
+    (" you", 2.1),
+    (" nexus.", 2.4),
+]
+SCENE2_FULL = [
+    (" Keep", 0.12),
+    (" it", 0.3),
+    (" simple.", 0.5),
+    (" See", 1.5),
+    (" you", 1.6),
+    (" next", 1.7),
+    (" time.", 1.8),
+]
+
+
+def alignment_at(text, starts_at):
+    """Alignment of one element per character; the start is the latest override at or before it."""
+    starts, current = [], 0.0
+    for i in range(len(text)):
+        current = starts_at.get(i, current)
+        starts.append(current)
+    return {
+        "characters": list(text),
+        "character_start_times_seconds": starts,
+        "character_end_times_seconds": [s + 0.01 for s in starts],
+    }
+
+
+def record_entries(wavs, texts, starts):
+    return [
+        eleven_entry(n, wav, text, alignment=alignment_at(text, at))
+        for n, (wav, text, at) in enumerate(zip(wavs, texts, starts, strict=True), 1)
+    ]
+
+
+def worked_record(out, wavs):
+    starts = [{0: 0.24, 14: 1.2344}, {0: 0.12, 16: 1.5}]
+    return write_record(out, *record_entries(wavs, BODIES, starts))
+
+
+def fail_if_called(key):
+    raise AssertionError("the factory must not be called")

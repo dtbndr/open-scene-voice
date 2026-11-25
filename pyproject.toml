@@ -4,16 +4,20 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scenevoice"
-version = "0.1.0"
+version = "0.2.0"
+requires-python = ">=3.12"
 license = "AGPL-3.0-only"
 license-files = ["LICENSE"]
-requires-python = ">=3.12"
+dependencies = ["python-dotenv>=1.2.3,<2"]
 
 [project.scripts]
 scenevoice = "scenevoice.cli.main:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+"scenevoice.web" = ["static/**/*"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
@@ -22,3 +26,12 @@ ignore = ["E501"]
 [tool.mypy]
 python_version = "3.12"
 files = ["src"]
+
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib"]
+pythonpath = ["tests"]
+testpaths = ["tests"]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true

@@ -1,0 +1,296 @@
+{
+  "unobserved": true,
+  "note": "Synthetic cases in the assumed OpenAI-style chat-completions shape. None of these bodies was observed from OpenRouter. The 401 and 400 error bodies are the observed error_401.json and error_400.json in this folder.",
+  "refresh_note": "Replace with observed fixtures after the owner's paid probe, and refresh again at the M14 live acceptance.",
+  "cases": {
+    "good_reply": {
+      "status": 200,
+      "body": {
+        "id": "synthetic-1",
+        "model": "synthetic/model",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "## Opening\nWelcome back to the channel.\n\n## The reveal\nToday we open the box.\n"
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 20,
+          "total_tokens": 30
+        }
+      }
+    },
+    "code_fenced_reply": {
+      "status": 200,
+      "body": {
+        "id": "synthetic-1",
+        "model": "synthetic/model",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "```\n## Opening\nWelcome back to the channel.\n\n## The reveal\nToday we open the box.\n```\n"
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 20,
+          "total_tokens": 30
+        }
+      }
+    },
+    "crlf_tab_reply": {
+      "status": 200,
+      "body": {
+        "id": "synthetic-1",
+        "model": "synthetic/model",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "## Opening\r\nWelcome\tback to the channel.\r\n\r\n## The reveal\r\nToday we open the box.\r\n"
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 20,
+          "total_tokens": 30
+        }
+      }
+    },
+    "plan_check_failure_reply": {
+      "status": 200,
+      "body": {
+        "id": "synthetic-1",
+        "model": "synthetic/model",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "## Opening\nWelcome back to the channel.\n\n## Empty scene\n\n"
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 20,
+          "total_tokens": 30
+        }
+      }
+    },
+    "bare_fence_line_in_scene_reply": {
+      "status": 200,
+      "body": {
+        "id": "synthetic-1",
+        "model": "synthetic/model",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "## Opening\nWelcome back.\n```\nTo the channel.\n\n## The reveal\nToday we open the box.\n"
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 20,
+          "total_tokens": 30
+        }
+      }
+    },
+    "text_before_first_heading_reply": {
+      "status": 200,
+      "body": {
+        "id": "synthetic-1",
+        "model": "synthetic/model",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "Here is your script:\n\n## Opening\nWelcome back to the channel.\n\n## The reveal\nToday we open the box.\n"
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 20,
+          "total_tokens": 30
+        }
+      }
+    },
+    "length_reply": {
+      "status": 200,
+      "body": {
+        "id": "synthetic-1",
+        "model": "synthetic/model",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "length",
+            "message": {
+              "role": "assistant",
+              "content": "## Opening\nWelcome back to the chan"
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 20,
+          "total_tokens": 30
+        }
+      }
+    },
+    "length_empty_content_reply": {
+      "status": 200,
+      "body": {
+        "id": "synthetic-1",
+        "model": "synthetic/model",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "length",
+            "message": {
+              "role": "assistant",
+              "content": ""
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 20,
+          "total_tokens": 30
+        }
+      }
+    },
+    "content_filter_reply": {
+      "status": 200,
+      "body": {
+        "id": "synthetic-1",
+        "model": "synthetic/model",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "content_filter",
+            "message": {
+              "role": "assistant",
+              "content": ""
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 20,
+          "total_tokens": 30
+        }
+      }
+    },
+    "error_object_in_200": {
+      "status": 200,
+      "body": {
+        "error": {
+          "message": "Provider returned error",
+          "code": 502
+        }
+      }
+    },
+    "non_json_200": {
+      "status": 200,
+      "body": "<html>gateway page</html>"
+    },
+    "empty_choices_reply": {
+      "status": 200,
+      "body": {
+        "id": "synthetic-1",
+        "choices": []
+      }
+    },
+    "null_content_reply": {
+      "status": 200,
+      "body": {
+        "id": "synthetic-1",
+        "model": "synthetic/model",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": null
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 20,
+          "total_tokens": 30
+        }
+      }
+    },
+    "lone_surrogate_reply": {
+      "status": 200,
+      "body": {
+        "id": "synthetic-1",
+        "model": "synthetic/model",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+              "role": "assistant",
+              "content": "## Opening\nBad \ud800 text.\n"
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 20,
+          "total_tokens": 30
+        }
+      }
+    },
+    "error_402": {
+      "status": 402,
+      "body": {
+        "error": {
+          "message": "Insufficient credits.",
+          "code": 402
+        }
+      }
+    },
+    "error_429": {
+      "status": 429,
+      "body": {
+        "error": {
+          "message": "Rate limit exceeded.",
+          "code": 429
+        }
+      }
+    },
+    "error_500": {
+      "status": 500,
+      "body": {
+        "error": {
+          "message": "Internal server error.",
+          "code": 500
+        }
+      }
+    }
+  }
+}

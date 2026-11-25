@@ -1,21 +1,18 @@
 """Shared helpers for the ElevenLabs `synth --scene` tests (offline, injected post)."""
 
 import json
-from pathlib import Path
+
+from paths_helper import FIXTURES as ALL_FIXTURES
 
 from scenevoice.cli.main import main
 from scenevoice.synth import ELEVENLABS_ENV_NAMES, ENV_NAMES, make_elevenlabs_provider
 
-FIXTURES = Path(__file__).parent / "fixtures" / "elevenlabs"
+FIXTURES = ALL_FIXTURES / "elevenlabs"
 VOICE = "EXAVITQu4vr4xnSDxMaL"
 FLASH, V4 = "eleven_flash_v2_5", "eleven_v4"
 BODIES = ["First scene body.", "Second scene body.", "Third scene body."]
 PREFIX = "scenevoice synth: "
 DIFF = PREFIX + "FAIL scene 2 settings differ from synth_record.json: "
-MALFORMED = (
-    PREFIX + "FAIL synth_record.json is not a valid synth record "
-    "(delete it to regenerate without a settings check)"
-)
 
 
 class FakePost:

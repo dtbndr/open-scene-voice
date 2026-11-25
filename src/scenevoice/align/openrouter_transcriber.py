@@ -8,6 +8,7 @@ from scenevoice.align.build_transcription_request import build_transcription_req
 from scenevoice.align.match_constants import ALIGN_URL, REQUEST_TIMEOUT_SECONDS
 from scenevoice.align.transcription_error import TranscriptionError
 from scenevoice.synth.one_line import one_line
+from scenevoice.synth.redact_secret import redact_secret
 
 _EXCERPT_CHARS = 500
 _DETAIL_CHARS = 200
@@ -17,12 +18,15 @@ def _detail(value: object) -> str:
     return one_line(str(value))[:_DETAIL_CHARS]
 
 
-def _map_error(exc: Exception) -> TranscriptionError:
+def _map_error(exc: Exception, key: str) -> TranscriptionError:
     if isinstance(exc, urllib.error.HTTPError):
         try:
-            body = exc.read(_EXCERPT_CHARS * 4).decode("utf-8", errors="replace")
+            kb = len(key.encode())
+            window = _EXCERPT_CHARS * max(4, kb) + kb
+            body = exc.read(window).decode("utf-8", errors="replace")
         except Exception:
             body = ""
+        body = redact_secret(body, key)
         return TranscriptionError(exc.code, one_line(body)[:_EXCERPT_CHARS])
     name = type(exc).__name__
     # ValueError and HTTPException text can carry header values (the key).
@@ -49,7 +53,7 @@ def openrouter_transcriber(
             status = response.status
             body: bytes = response.read()
     except (OSError, http.client.HTTPException, ValueError) as exc:
-        raise _map_error(exc) from exc
+        raise _map_error(exc, key) from exc
     if status != 200:
         raise TranscriptionError(status, f"HTTP {status}")
     return body

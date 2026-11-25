@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from scenevoice.validation import Violation
+from scenevoice.validation.regular_file_problem import regular_file_problem
 
 _RULE = "plan-input"
 
@@ -12,6 +13,9 @@ def _unreadable(reason: str) -> Violation:
 def read_plan_input(path: str | Path | None, stdin) -> bytes | Violation:
     """Step 2: the plan bytes from `path`, or from `stdin.buffer` when no path is given."""
     if path is not None:
+        problem = regular_file_problem(path)
+        if problem is not None:
+            return _unreadable(problem)
         try:
             return Path(path).read_bytes()
         except OSError as exc:

@@ -36,7 +36,9 @@ def make_elevenlabs_provider(
                 post(url, headers, payload, _TIMEOUT_SECONDS)
             )
         except ProviderError as exc:
-            raise ProviderError(redact_secret(str(exc), raw_key)) from exc
+            raise ProviderError(
+                redact_secret(str(exc), raw_key), status=exc.status, transport=exc.transport
+            ) from exc
         except Exception as exc:
             message = f"ElevenLabs request failed: {type(exc).__name__}"
             raise ProviderError(redact_secret(message, raw_key)) from exc

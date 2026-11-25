@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 
 from scenevoice.align import TranscriberFactory, run_align
+from scenevoice.keys import key_file_path as default_key_file_path
 
 
 def run_align_command(args, transcriber_factory: TranscriberFactory) -> int:
@@ -18,4 +19,6 @@ def run_align_command(args, transcriber_factory: TranscriberFactory) -> int:
         args.dir,
         transcriber_factory,
         sys.stderr,
+        key_file_path=default_key_file_path(os.environ),
+        progress_mode=args.progress,
     )

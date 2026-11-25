@@ -1,6 +1,6 @@
 # SceneVoice
 
-A local CLI that turns a scene-marked creator script into a DaVinci Resolve timeline with the voiceover linked, scene and line markers set, and a `scene_manifest.csv` for editors we do not support. Intended for technically comfortable creators and editors to use themselves, it also supports the done-for-you [Voice Your Scenes](https://voiceyourscenes.com) service. The product boundary is in [`SPEC.md`](SPEC.md).
+A local CLI that turns a scene-marked creator script into a DaVinci Resolve timeline with the voiceover linked, scene and line markers set, and a `scene_manifest.csv` for editors we do not support. Intended to be open source for self-use by video creators and editors, it also supports the done-for-you [Voice Your Scenes](https://voiceyourscenes.com) service. The product boundary is in [`SPEC.md`](SPEC.md).
 
 ## Usage
 
@@ -15,12 +15,13 @@ scenevoice pack plan.json out --editor resolve
 
 The result in `out/` is a DaVinci Resolve timeline (`resolve_timeline.otio`) with the scene audio linked, scene markers and line markers, ready to import in one step, plus `scene_manifest.csv` for editors we do not support.
 
-`synth` makes hosted text-to-speech calls and `align` may make hosted transcription calls; each needs credentials, and uses provider quota, where it calls. Run `scenevoice <command> --help` for all options. What `pack` writes and where, and what `--editor` adds, is in the [pack contract](docs/specs/pack-contract.md); `align` is in the [align contract](docs/specs/align-contract.md). To redo one scene, see [Single-scene regeneration](docs/specs/synth-contract.md#single-scene-regeneration).
+`synth` makes hosted text-to-speech calls, `align` may make hosted transcription calls, and `beats` makes a hosted language-model call that sends your script text to OpenRouter to plan each scene's visual beats; each needs credentials (`beats` needs `OPENROUTER_API_KEY`), and uses provider quota, where it calls. Run `scenevoice <command> --help` for all options. What `pack` writes and where, and what `--editor` adds, is in the [pack contract](docs/specs/pack-contract.md); `align` is in the [align contract](docs/specs/align-contract.md). To redo one scene, see [Single-scene regeneration](docs/specs/synth-contract.md#single-scene-regeneration).
 
 ## More
 
 - Setup, lint and typecheck, and contributor and agent rules: [`CLAUDE.md`](CLAUDE.md)
 - How the stages fit together: [`docs/architecture.md`](docs/architecture.md)
+- Install on a Mac without writing code: [`docs/install.md`](docs/install.md)
 
 ## Contributing
 

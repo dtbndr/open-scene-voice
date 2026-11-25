@@ -18,7 +18,7 @@ def parse_scenes(text: str) -> list[Scene] | Violation:
     lines = text.split("\n")
     markers = [i for i, line in enumerate(lines) if line.startswith(_MARKER)]
     if not markers:
-        return Violation("no-marker", "no scene marker found; start each scene with '## ' at column one")
+        return Violation("no-marker", "No scene found. Start each scene with `## ` and a title, at the very start of the line.")
     scenes = []
     for n, start in enumerate(markers):
         end = markers[n + 1] if n + 1 < len(markers) else len(lines)
@@ -28,8 +28,8 @@ def parse_scenes(text: str) -> list[Scene] | Violation:
         title = lines[start][len(_MARKER) :]
         line = start + 1
         if is_blank(title):
-            return Violation("blank-title", "scene title is blank", line)
+            return Violation("blank-title", "This scene has no title. Add a title after the `## `.", line)
         if is_blank(body):
-            return Violation("blank-body", "scene body is empty or only white space", line)
+            return Violation("blank-body", "This scene has nothing to say. Add the text to be spoken under the title, or delete the scene.", line)
         scenes.append(Scene(n + 1, title, body, line))
     return scenes
